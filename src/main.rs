@@ -1,16 +1,15 @@
-#[link(name = "foo", kind = "static")]
-extern "C" {
-    fn foo_function();
-    fn bar_function(x: i32) -> i32;
-}
+extern crate libc;
 
-pub fn call() {
-    unsafe {
-        foo_function();
-        // bar_function(42);
-    }
+use libc::{ c_void, c_char, size_t };
+use std::ffi::{ CStr, CString };
+
+#[link(name = "hello", kind = "static")]
+extern "C" {
+  fn hello();
 }
 
 fn main() {
-    call()
+  unsafe{
+    hello();
+  }
 }

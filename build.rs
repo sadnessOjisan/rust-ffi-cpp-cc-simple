@@ -1,8 +1,16 @@
 extern crate cc;
 
-fn main() {
+fn main(){
+    println!("cargo:rustc-link-search=native=/usr/local/lib");
     cc::Build::new()
-        .file("./src/foo.c")
-        .include("src")
-        .compile("foo");
+        .cpp(true)
+        .warnings(true)
+        .flag("-Wall")
+        .flag("-Wextra")
+        .flag("-v")
+        .flag("-g")
+        .file("src/cpp/src/hello.cpp")
+        .include("src/cpp/include")
+        .compile("libhello.a");
+        println!("cargo:rustc-link-lib=hello");
 }
